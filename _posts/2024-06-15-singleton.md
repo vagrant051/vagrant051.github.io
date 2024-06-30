@@ -2,7 +2,7 @@
 layout: post
 title: "单例模式"
 categories: C++
-tags: [设计模式]
+tags: [games105]
 ---
 
 ## 单例模式的分类
