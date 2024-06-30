@@ -2,7 +2,7 @@
 layout: post
 title: "单例模式"
 categories: C++
-tags: [123]
+tags: []
 ---
 
 ## 单例模式的分类
