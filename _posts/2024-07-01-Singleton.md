@@ -3,7 +3,7 @@ layout: post
 toc: true
 title: "单例模式"
 categories: C++
-tags: [设计模式]
+tags: [design-pattern]
 ---
 
 ## 单例模式的分类
