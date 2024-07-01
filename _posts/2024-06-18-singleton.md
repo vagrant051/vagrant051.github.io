@@ -123,3 +123,48 @@ static std::shared_ptr<ShoppingManager> GetInstance()
 }
 {% endhighlight %}
 
+#### 使用std::call_once优化
+
+避免使用锁而带来的开销
+
+{% highlight ruby %}
+class ShoppingManager
+{
+public:
+	static std::shared_ptr<ShoppingManager> GetInstance()
+	{
+		std::call_once(flag, []{
+			s_Instance = std::shared_ptr<ShoppingManager>(new ShoppingManager());
+		});
+		return s_Instance;
+	}
+	void PushItem(const std::string& item_name, int num)
+	{
+		std::unique_lock<std::mutex> lock(s_VectorMutex);
+		m_ShoppingCart.push_back(std::make_pair(item_name, num));
+	}
+	void PrintInfo()
+	{
+		for (const auto& elem : m_ShoppingCart)
+		{
+			std::cout << elem.first << " " << elem.second << std::endl;
+		}
+	}
+private:
+	ShoppingManager() 
+	{ 
+		m_ShoppingCart.reserve(100);
+	}
+	ShoppingManager& operator=(const ShoppingManager& other) = delete;
+	ShoppingManager(const ShoppingManager& other) = delete;
+private:
+	static std::shared_ptr<ShoppingManager> s_Instance;
+	std::vector<std::pair<std::string, int>> m_ShoppingCart;
+	static std::mutex s_VectorMutex;
+	static std::once_flag flag;
+};
+
+std::shared_ptr<ShoppingManager> ShoppingManager::s_Instance = nullptr;
+std::mutex ShoppingManager::s_VectorMutex;
+std::once_flag ShoppingManager::flag;
+{% endhighlight %}
