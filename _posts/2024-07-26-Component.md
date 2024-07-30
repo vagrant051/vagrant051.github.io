@@ -11,3 +11,6 @@ Unreal Engine的组件化思想
 
 ![My helpful screenshot](/assets/Component/1.png)
 
+![My helpful screenshot](/assets/Component/2.png)
+
+![My helpful screenshot](/assets/Component/3.png)
